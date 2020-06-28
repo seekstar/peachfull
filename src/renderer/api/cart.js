@@ -2,25 +2,25 @@ import { query } from '@/utils/mysql'
 
 export async function addCart(token, goods_no, num) {
   return request({
-    url: '/cart',
+    url: '/cart/add',
     method: 'post',
-    data: ['add', token, goods_no, num]
+    data: [token, goods_no, num]
   })
 }
 
 export async function deleteCart(cart_no) {
   return request({
-    url: '/cart',
+    url: '/cart/delete',
     method: 'post',
-    data: ['delete', cart_no]
+    data: [cart_no]
   })
 }
 
 export async function updateCart(cart_no, num) {
   return request({
-    url: '/cart',
+    url: '/cart/update',
     method: 'post',
-    data: ['update', cart_no, num]
+    data: [cart_no, num]
   })
 }
 export async function getCart(token) {

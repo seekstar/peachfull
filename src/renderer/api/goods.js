@@ -18,16 +18,16 @@ export async function getMyGoods(seller, conds) {
 
 export async function addMyGoods(seller, goods) {
   return request({
-    url: '/mygoods',
+    url: '/mygoods/add',
     method: 'post',
-    data: ['add', seller, goods]
+    data: [seller, goods]
   })
 }
 export async function updateMyGoods(goods, goods_no) {
   return request({
-    url: '/mygoods',
+    url: '/mygoods/update',
     method: 'post',
-    data: ['update', goods, goods_no]
+    data: [goods, goods_no]
   })
 }
 export async function updateGoodsImg(goods_no, url) {
@@ -40,8 +40,8 @@ export async function updateGoodsImg(goods_no, url) {
 
 export async function deleteMyGoods(goods_no) {
   return request({
-    url: 'mygoods',
+    url: '/mygoods/delete',
     method: 'post',
-    data: ['delete', goods_no]
+    data: [goods_no]
   })
 }

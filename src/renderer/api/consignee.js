@@ -2,25 +2,25 @@ import { query } from '@/utils/mysql'
 
 export async function addConsignee(token, consignee) {
   return request({
-    url: '/consignee',
+    url: '/consignee/add',
     method: 'post',
-    data: ['add', token, consignee]
+    data: [token, consignee]
   })
 }
 
 export async function updateConsignee(consignee, consignee_no) {
   return request({
-    url: '/consignee',
+    url: '/consignee/update',
     method: 'post',
-    data: ['update', consignee, consignee_no]
+    data: [consignee, consignee_no]
   })
 }
 
 export async function deleteConsignee(consignee_no) {
   return request({
-    url: '/consignee',
+    url: '/consignee/delete',
     method: 'post',
-    data: ['delete', consignee_no]
+    data: [consignee_no]
   })
 }
 export async function getConsignee(token) {

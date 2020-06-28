@@ -25,9 +25,9 @@ export async function getOrderForSeller(token, state) {
 
 export async function updateOrder(order_no, state) {
   return request({
-    url: '/order',
+    url: '/order/update',
     method: 'post',
-    data: ['update', order_no, state]
+    data: [order_no, state]
   })
 }
 
