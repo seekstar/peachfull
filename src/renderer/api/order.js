@@ -4,22 +4,32 @@ export async function addOrder(token, goods, consignee) {
   return request({
     url: '/order',
     method: 'post',
-    data: [token, goods, consignee]
+    data: {
+      token: token,
+      goods: goods,
+      consignee: consignee
+    }
   })
 }
 
 export async function getOrderForBuyer(token, state) {
   return request({
-    url: '/order',
+    url: '/order/buyer',
     method: 'get',
-    data: ['buyer', token, state]
+    data: {
+      token: token,
+      state: state
+    }
   })
 }
 export async function getOrderForSeller(token, state) {
   return request({
-    url: '/order',
+    url: '/order/seller',
     method: 'get',
-    data: ['seller', token, state]
+    data: {
+      token: token,
+      state: state
+    }
   })
 }
 
@@ -27,7 +37,10 @@ export async function updateOrder(order_no, state) {
   return request({
     url: '/order/update',
     method: 'post',
-    data: [order_no, state]
+    data: {
+      order_no: order_no,
+      state: state
+    }
   })
 }
 
@@ -35,6 +48,10 @@ export async function addExpress(order_no, express_name, express_number) {
   return request({
     url: '/express',
     method: 'post',
-    data: [order_no, express_name, express_number]
+    data: {
+      order_no: order_no,
+      express_name: express_name,
+      express_number: express_number
+    }
   })
 }

@@ -4,7 +4,10 @@ export async function login(username, password) {
   const result = await request({
     url: '/user/login',
     method: 'get',
-    data: [username, password]
+    data: {
+      username: username,
+      password: password
+    }
   })
   if (result == 'wrong') {
     Message.error('用户名或密码错误')
@@ -19,7 +22,7 @@ export async function getRole(token) {
   return request({
     url: '/role',
     method: 'get',
-    data: token
+    data: {token: token}
   })
 }
 
@@ -27,7 +30,7 @@ export async function getInfo(token) {
   return request({
     url: '/info',
     method: 'get',
-    data: token
+    data: {token: token}
   })
 }
 
@@ -37,7 +40,10 @@ export async function updateInfo(token, info) {
   await request({
     url: '/user_info',
     method: 'post',
-    data: [info, token]
+    data: {
+      info: info,
+      token: token
+    }
   })
 }
 
@@ -45,7 +51,10 @@ export async function updateAvatar(token, avatar) {
   await request({
     url: '/avatar',
     method: 'post',
-    data: [avatar, token]
+    data: {
+      avatar: avatar,
+      token: token
+    }
   })
 }
 
@@ -53,7 +62,11 @@ export async function updatePassword(token, old, password) {
   const result = await request({
     url: '/user/login',
     method: 'post',
-    data: [token, old, password]
+    data: {
+      token: token,
+      old: old,
+      password: password
+    }
   })
   if (result == 'wrong') {
     Message.error('原密码错误')
@@ -65,7 +78,13 @@ export async function signup(username, password, roles, name, phone) {
   return request({
     url: '/signup',
     method: 'post',
-    data: [username, password, roles, name, phone]
+    data: {
+      username: username,
+      password: password,
+      roles: roles,
+      name: name,
+      phone: phone
+    }
   })
 }
 
@@ -73,7 +92,7 @@ export async function getLog(token) {
   return request({
     url: '/log',
     method: 'get',
-    data: token
+    data: {token: token}
   })
 }
 
