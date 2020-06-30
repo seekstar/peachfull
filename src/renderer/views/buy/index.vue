@@ -56,14 +56,43 @@
           <el-button @click="dislike(item)">差评</el-button>
             <span>{{item.dislikes}}</span>
         </div> -->
+        <div style="margin-top: 10px;">
+          <el-button @click="show_comment_dialog(item)">评论</el-button>
+        </div>
         </el-main>
         </el-container>
     </el-card>
   </el-col> 
 </el-row>
- 
+<el-dialog title="评论" :visible.sync="commentVisible">
+  <el-input
+    type="textarea"
+    :rows=10
+    placeholder="请输入评论"
+    v-model="comment"
+  ></el-input>
+  <div class="block">
+    <span class="demonstration">区分颜色</span>
+    <el-rate
+      v-model="rating"
+      :colors="colors">
+    </el-rate>
+  </div>
+  <el-button @click="submit_comment">提交</el-button>
+</el-dialog>
   </div>
 </template>
+
+<style>
+.box{
+    width:50%; margin-top:10%; margin:auto; padding:28px;
+    height:350px; border:1px #111 solid;
+    display:none;            /* 默认对话框隐藏 */
+}
+.box.show{display:block;} 
+.box .x{ font-size:18px; text-align:right; display:block;}
+.box input{width:80%; font-size:18px; margin-top:18px;}
+</style>
 
 <script>
 import { mapGetters } from 'vuex'
@@ -88,7 +117,11 @@ export default {
       consignee: null,
       selected: [],
       state: null,
-      stateList: ['全部', '待发货', '已发货', '申请退货', '退货成功', '交易成功']
+      stateList: ['全部', '待发货', '已发货', '申请退货', '退货成功', '交易成功'],
+      comment: null,
+      rating: null,
+      commentVisible: false,
+      colors: ['#99A9BF', '#F7BA2A', '#FF9900'] // 等同于 { 2: '#99A9BF', 4: { value: '#F7BA2A', excluded: true }, 5: '#FF9900' }
     }
   },
   computed: {
@@ -157,9 +190,17 @@ export default {
       this.buyVisible = false
       this.detailVisible = false
     },
-    async like(item) {
+    // async like(item) {
+    // },
+    // async dislike(item) {
+    // },
+    show_comment_dialog() {
+      this.commentVisible = true
     },
-    async dislike(item) {
+    async submit_comment() {
+      this.commentVisible = false
+      // TODO:
+      // await post_comment(this.token, this.item.goods_no, this.rating, this.comment)
     },
     parseTime(time) { return parseTime(time) }
   }

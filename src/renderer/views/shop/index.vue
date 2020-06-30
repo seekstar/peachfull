@@ -49,7 +49,8 @@
         <div>库存：{{item.stock}}&nbsp;&nbsp;&nbsp;销量：{{item.sales}}</div>
         <div style="margin-top: 10px;">
           <el-button @click="onReady" :disabled="!item.num">立即购买</el-button>
-        <el-button @click="onAdd" :disabled="!item.num">加入购物车</el-button>
+          <el-button @click="onAdd" :disabled="!item.num">加入购物车</el-button>
+          <el-button @click="show_comment">查看评论</el-button>
         </div>
         </el-main>
         </el-container>
@@ -129,6 +130,9 @@
         <el-button type="primary" @click="EditConsignee">确 定</el-button>
       </div>
     </el-dialog>
+    <el-dialog :visible.sync="commentsVisible">
+      <span>{{comments}}</span>
+    </el-dialog>
   </div>
 </template>
 
@@ -152,7 +156,9 @@ export default {
       consignee_no: null,
       consigneeForm: {},
       consigneeAddVisible: false,
-      consigneeEditVisible: false
+      consigneeEditVisible: false,
+      comments: null,
+      commentsVisible: false
     }
   },
   computed: {
@@ -217,6 +223,12 @@ export default {
         message: 'cancel!',
         type: 'warning'
       })
+    },
+    async show_comment() {
+      this.comments = '正在加载'
+      this.commentsVisible = true
+      // TODO:
+      // this.comments = await get_comment(this.item.goods_no)
     }
   }
 }
