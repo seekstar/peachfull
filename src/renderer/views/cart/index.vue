@@ -210,10 +210,8 @@ export default {
     ])
   },
   async mounted() {
-    getCart(this.token).then(response => {
-      this.goods = response
-      this.goods.forEach((item, index) => { this.checked[index] = false })
-    })
+    this.goods = await getCart(this.token)
+    this.goods.forEach((item, index) => { this.checked[index] = false })
   },
   methods: {
     async AddConsignee() {
@@ -266,11 +264,9 @@ export default {
     },
     async DeleteCart(item) {
       await deleteCart(item.cart_no)
-      getCart(this.token).then(response => {
-        this.goods = response;
-        this.goods.forEach((item, index) => { this.checked[index] = false })
-        this.$message.success('删除成功')
-      })
+      this.goods = await getCart(this.token)
+      this.goods.forEach((item, index) => { this.checked[index] = false })
+      this.$message.success('删除成功')
     },
     async allBuy() {
       this.total = 0
@@ -285,11 +281,9 @@ export default {
       await addOrder(this.token, this.selected, this.consignee)
       console.log(this.selected)
       await this.selected.forEach(async value => { await deleteCart(value.cart_no) })
-      getCart(this.token).then(response => {
-        this.goods = response
-        this.goods.forEach((item, index) => { this.checked[index] = false })
-        this.$message.success('购买成功')
-      })
+      this.goods = await getCart(this.token)
+      this.goods.forEach((item, index) => { this.checked[index] = false })
+      this.$message.success('购买成功')
     }
   }
 }

@@ -57,7 +57,7 @@ export const asyncRoutes = [
       {
         path: 'index',
         name: '商店',
-        // component: () => import('@/views/shop/index'),
+        component: () => import('@/views/shop/index'),
         meta: {
           title: '商店', elicon: 'el-icon-s-shop', roles: ['buyer']
         }
@@ -71,7 +71,7 @@ export const asyncRoutes = [
       {
         path: 'index',
         name: '购物车',
-        // component: () => import('@/views/cart/index'),
+        component: () => import('@/views/cart/index'),
         meta: {
           title: '购物车', elicon: 'el-icon-shopping-cart-2', roles: ['buyer']
         }
@@ -85,7 +85,7 @@ export const asyncRoutes = [
       {
         path: 'index',
         name: '我买到的',
-        // component: () => import('@/views/buy/index'),
+        component: () => import('@/views/buy/index'),
         meta: {
           title: '我买到的', elicon: 'el-icon-goods', roles: ['buyer']
         }
@@ -99,7 +99,7 @@ export const asyncRoutes = [
       {
         path: 'index',
         name: '商品管理',
-        // component: () => import('@/views/goods/index'),
+        component: () => import('@/views/goods/index'),
         meta: {
           title: '商品管理', elicon: 'el-icon-setting', roles: ['seller']
         }
@@ -113,7 +113,7 @@ export const asyncRoutes = [
       {
         path: 'index',
         name: '我卖出的',
-        // component: () => import('@/views/sell/index'),
+        component: () => import('@/views/sell/index'),
         meta: {
           title: '我卖出的', elicon: 'el-icon-s-goods', roles: ['seller']
         }

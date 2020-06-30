@@ -61,7 +61,7 @@ export async function updatePassword(token, old, password) {
   }
 }
 
-export async function signup(username, password, roles, name, phone) {
+export async function signin(username, password, roles, name, phone) {
   await transcaction(async(conn) => {
     await connquery(conn, 'insert into user set ?', { username, password })
     var sql = 'insert into user_role (username,role) values '

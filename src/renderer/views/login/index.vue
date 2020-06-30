@@ -24,7 +24,7 @@
         </el-button>
       </el-form-item>
        <el-form-item>
-        <el-button style="width:100%;" :loading="loading" @click="signupFormVisible=true">
+        <el-button style="width:100%;" :loading="loading" @click="signinFormVisible=true">
           注册
         </el-button>
       </el-form-item> 
@@ -34,31 +34,31 @@
     </el-form>
     
   </div>
-  <div class="signupContainer">
-    <el-dialog title="注册" :visible.sync="signupFormVisible">
-      <el-form :model="signupForm" :rules="rules" ref="signupForm" >
+  <div class="signinContainer">
+    <el-dialog title="注册" :visible.sync="signinFormVisible">
+      <el-form :model="signinForm" :rules="rules" ref="signinForm" >
         <el-form-item prop="username" label="用户名" :label-width="formLabelWidth">
-          <el-input v-model="signupForm.username"></el-input>
+          <el-input v-model="signinForm.username"></el-input>
         </el-form-item>
         <el-form-item prop="password"  label="密码" :label-width="formLabelWidth">
-          <el-input v-model="signupForm.password" type="password"></el-input>
+          <el-input v-model="signinForm.password" type="password"></el-input>
         </el-form-item>
         <el-form-item prop="roles" label="我是" :label-width="formLabelWidth">
-          <el-checkbox-group v-model="signupForm.roles">
+          <el-checkbox-group v-model="signinForm.roles">
             <el-checkbox label="买家"></el-checkbox>
             <el-checkbox label="卖家"></el-checkbox>
           </el-checkbox-group>
         </el-form-item>
         <el-form-item prop="name" label="昵称" :label-width="formLabelWidth">
-          <el-input v-model="signupForm.name"></el-input>
+          <el-input v-model="signinForm.name"></el-input>
         </el-form-item>
         <el-form-item prop="phone" label="手机" :label-width="formLabelWidth">
-          <el-input v-model="signupForm.phone"></el-input>
+          <el-input v-model="signinForm.phone"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="signupFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="handleSignup">确 定</el-button>
+        <el-button @click="signinFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="handleSignin">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -68,7 +68,7 @@
 <script>
 
 import { isvalidUsername } from '@/utils/validate'
-import { signup } from '@/api/user'
+import { signin } from '@/api/user'
 import './TCaptcha.js'
 export default {
   name: 'login',
@@ -102,14 +102,14 @@ export default {
       },
       loading: false,
       pwdType: 'password',
-      signupForm: {
+      signinForm: {
         username: '',
         password: '',
         roles: ['买家'],
         name: '',
         phone: ''
       },
-      signupFormVisible: false,
+      signinFormVisible: false,
       formLabelWidth: '80px'
     }
   },
@@ -147,22 +147,22 @@ export default {
         }
       })
     },
-    handleSignup() {
-      this.$refs.signupForm.validate(valid => {
+    handleSignin() {
+      this.$refs.signinForm.validate(valid => {
         if (valid) {
           console.log(valid)
           this.loading = true
-          signup(this.signupForm.username,
-            this.signupForm.password,
-            this.signupForm.roles,
-            this.signupForm.name,
-            this.signupForm.phone
+          signin(this.signinForm.username,
+            this.signinForm.password,
+            this.signinForm.roles,
+            this.signinForm.name,
+            this.signinForm.phone
           ).then(() => {
             this.loading = false
             this.$message.success('注册成功')
-            this.signupFormVisible = false
+            this.signinFormVisible = false
           }).catch(() => {
-            console.log(this.signupForm)
+            console.log(this.signinForm)
             this.loading = false
           })
         } else {

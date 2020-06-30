@@ -39,7 +39,6 @@
          <div style="margin-top: 10px;">
            <span>卖家:{{item.seller}}&nbsp;&nbsp;&nbsp;</span>
            <span>状态:{{item.state}}</span>
-           
         </div>
         <div v-if="item.state.indexOf('已发货')!=-1" style="margin-top: 10px;">
           <span>快递：{{item.express_name}},{{item.express_number}}</span>
@@ -51,6 +50,12 @@
         <div v-else-if="item.state.indexOf('退')==-1" style="margin-top: 10px;">
            <el-button @click="backGoods(item)">退货退款</el-button>
         </div>
+        <!-- <div style="margin-top: 10px;">
+          <el-button @click="like(item)">好评</el-button>
+            <span>{{item.likes}}</span>
+          <el-button @click="dislike(item)">差评</el-button>
+            <span>{{item.dislikes}}</span>
+        </div> -->
         </el-main>
         </el-container>
     </el-card>
@@ -151,6 +156,10 @@ export default {
       this.$message.success('模拟付款成功')
       this.buyVisible = false
       this.detailVisible = false
+    },
+    async like(item) {
+    },
+    async dislike(item) {
     },
     parseTime(time) { return parseTime(time) }
   }

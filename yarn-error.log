@@ -1,0 +1,139 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js
+
+PATH: 
+  C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\iCLS\;C:\Program Files\Intel\Intel(R) Management Engine Components\iCLS\;D:\Anaconda3;D:\Anaconda3\Library\mingw-w64\bin;D:\Anaconda3\Library\usr\bin;D:\Anaconda3\Library\bin;D:\Anaconda3\Scripts;D:\ProgramData\Anaconda3\Library\mingw-w64\bin;D:\ProgramData\Anaconda3\Library\usr\bin;D:\ProgramData\Anaconda3\Library\bin;D:\ProgramData\Anaconda3\Scripts;D:\NVIDIA GPU Computing Toolkit\CUDA\v8.0\bin;D:\NVIDIA GPU Computing Toolkit\CUDA\v8.0\libnvvp;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Microsoft VS Code\bin;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files\Intel\Intel(R) Management Engine Components\DAL;C:\Program Files (x86)\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\Intel\Intel(R) Management Engine Components\IPT;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;C:\Program Files\MATLAB\R2018b\runtime\win64;C:\Program Files\MATLAB\R2018b\bin;C:\Program Files\Git\cmd;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\PuTTY\;C:\Program Files\PowerShell\7-preview\preview;C:\Program Files (x86)\Yarn\bin;C:\Program Files\MySQL\MySQL Server 8.0\bin;C:\Program Files\nodejs\;C:\Users\zszen\.windows-build-tools\python27\;C:\TDM-GCC-64\bin;C:\Program Files\CMake\bin;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\zszen\Anaconda3;C:\Users\zszen\Anaconda3\Library\mingw-w64\bin;C:\Users\zszen\Anaconda3\Library\usr\bin;C:\Users\zszen\Anaconda3\Library\bin;C:\Users\zszen\Anaconda3\Scripts;C:\Users\zszen\AppData\Local\Microsoft\WindowsApps;D:\Program Files\Microsoft VS Code\bin;C:\Program Files\Microsoft VS Code\bin;C:\Program Files\Bandizip\;C:\Program Files (x86)\IDM Computer Solutions\UltraEdit-32;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2019.2\bin;;C:\vertx\bin;D:\hadoop-3.1.2\bin;C:\Program Files\JetBrains\PyCharm Community Edition 2019.2.2\bin;;C:\electron;C:\mysql-8.0.17-winx64\bin;C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2019.2\jbr\bin;C:\kotlinc\bin;C:\Users\zszen\AppData\Local\Yarn\bin;C:\Users\zszen\.gradle\wrapper\dists\gradle-5.2.1-bin\9lc4nzslqh3ep7ml2tp68fk8s\gradle-5.2.1\bin;C:\texlive\2019\bin\win32;C:\mysql-8.0.19-winx64\;;C:\Program Files\JetBrains\DataGrip 2019.3.3\bin;;C:\Users\zszen\AppData\Roaming\npm
+
+Yarn version: 
+  1.19.0
+
+Node version: 
+  13.11.0
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: Client network socket disconnected before secure TLS connection was established
+      at connResetException (internal/errors.js:613:14)
+      at TLSSocket.onConnectEnd (_tls_wrap.js:1532:19)
+      at Object.onceWrapper (events.js:421:28)
+      at TLSSocket.emit (events.js:327:22)
+      at endReadableNT (_stream_readable.js:1201:12)
+      at processTicksAndRejections (internal/process/task_queues.js:84:21)
+
+npm manifest: 
+  {
+    "name": "electron-vue-admin",
+    "version": "3.0.0",
+    "author": "Pan <panfree23@gmail.com>",
+    "description": "An electron-vue project",
+    "license": "MIT",
+    "main": "./dist/electron/main.js",
+    "scripts": {
+      "build": "node .electron-vue/build.js && electron-builder",
+      "build:dir": "node .electron-vue/build.js && electron-builder --dir",
+      "build:clean": "cross-env BUILD_TARGET=clean node .electron-vue/build.js",
+      "build:web": "cross-env BUILD_TARGET=web node .electron-vue/build.js",
+      "dev": "node .electron-vue/dev-runner.js",
+      "lint": "eslint --ext .js,.vue -f ./node_modules/eslint-friendly-formatter src",
+      "lint:fix": "eslint --ext .js,.vue -f ./node_modules/eslint-friendly-formatter --fix src",
+      "pack": "npm run pack:main && npm run pack:renderer",
+      "pack:main": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.main.config.js",
+      "pack:renderer": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.renderer.config.js",
+      "postinstall": "npm run lint:fix"
+    },
+    "build": {
+      "productName": "electron-vue-admin",
+      "appId": "org.simulatedgreg.electron-vue",
+      "directories": {
+        "output": "build"
+      },
+      "files": [
+        "dist/electron/**/*"
+      ],
+      "dmg": {
+        "contents": [
+          {
+            "x": 410,
+            "y": 150,
+            "type": "link",
+            "path": "/Applications"
+          },
+          {
+            "x": 130,
+            "y": 150,
+            "type": "file"
+          }
+        ]
+      },
+      "mac": {
+        "icon": "build/icons/icon.icns"
+      },
+      "win": {
+        "icon": "build/icons/icon.ico"
+      },
+      "linux": {
+        "icon": "build/icons"
+      }
+    },
+    "dependencies": {
+      "axios": "0.17.1",
+      "element-ui": "2.3.4",
+      "js-cookie": "^2.2.0",
+      "normalize.css": "7.0.0",
+      "nprogress": "0.2.0",
+      "vue": "2.5.10",
+      "vue-electron": "^1.0.6",
+      "vue-router": "3.0.1",
+      "vuex": "3.0.1"
+    },
+    "devDependencies": {
+      "babel-core": "^6.25.0",
+      "babel-loader": "^7.1.1",
+      "babel-plugin-transform-runtime": "^6.23.0",
+      "babel-preset-env": "^1.6.0",
+      "babel-preset-stage-0": "^6.24.1",
+      "babel-register": "^6.24.1",
+      "babili-webpack-plugin": "^0.1.2",
+      "cfonts": "^1.1.3",
+      "chalk": "^2.1.0",
+      "copy-webpack-plugin": "^4.0.1",
+      "cross-env": "^5.0.5",
+      "css-loader": "^0.28.4",
+      "del": "^3.0.0",
+      "devtron": "^1.4.0",
+      "electron": "^1.7.5",
+      "electron-debug": "^1.4.0",
+      "electron-devtools-installer": "^2.2.0",
+      "electron-builder": "^19.19.1",
+      "babel-eslint": "^7.2.3",
+      "eslint": "^4.4.1",
+      "eslint-friendly-formatter": "^3.0.0",
+      "eslint-loader": "^1.9.0",
+      "eslint-plugin-html": "^3.1.1",
+      "extract-text-webpack-plugin": "^3.0.0",
+      "file-loader": "^0.11.2",
+      "html-webpack-plugin": "^2.30.1",
+      "multispinner": "^0.2.1",
+      "node-loader": "^0.6.0",
+      "node-sass": "^4.7.2",
+      "style-loader": "^0.18.2",
+      "sass-loader": "6.0.6",
+      "svg-sprite-loader": "3.5.2",
+      "url-loader": "^0.5.9",
+      "vue-html-loader": "^1.2.4",
+      "vue-loader": "^13.0.5",
+      "vue-style-loader": "^3.0.1",
+      "vue-template-compiler": "2.5.10",
+      "webpack": "^3.5.2",
+      "webpack-dev-server": "^2.7.1",
+      "webpack-hot-middleware": "^2.18.2"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

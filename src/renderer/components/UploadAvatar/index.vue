@@ -23,7 +23,7 @@
 <script>
 import ImageCropper from '@/components/ImageCropper'
 import PanThumb from '@/components/PanThumb'
-import { getInfo } from '@/api/user'
+import { getInfo } from "@/api/user"
 
 export default {
   name: 'AvatarUploadDemo',
@@ -33,7 +33,7 @@ export default {
       imagecropperShow: false,
       imagecropperKey: 0,
       image: ''
-      // image: 'https://wpimg.wallstcn.com/577965b9-bb9e-4e02-9f0c-095b41417191'
+      //image: 'https://wpimg.wallstcn.com/577965b9-bb9e-4e02-9f0c-095b41417191'
     }
   },
   methods: {
@@ -46,10 +46,10 @@ export default {
       this.imagecropperShow = false
     }
   },
-  beforeMount() {
+  beforeMount(){
     getInfo().then(resp => {
-      // console.log(resp.data)
-      this.image = resp.data.avatar
+      //console.log(resp.data)
+      this.image = resp.data.avatar;
     })
   }
 }

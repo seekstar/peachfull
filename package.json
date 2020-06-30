@@ -55,7 +55,7 @@
   "dependencies": {
     "@alicloud/pop-core": "^1.7.9",
     "ali-oss": "^6.7.0",
-    "axios": "^0.19.2",
+    "axios": "0.17.1",
     "element-ui": "2.13.1",
     "js-cookie": "^2.2.0",
     "mysql": "^2.18.1",
