@@ -72,7 +72,7 @@
     v-model="comment"
   ></el-input>
   <div class="block">
-    <span class="demonstration">区分颜色</span>
+    <span class="demonstration">打分</span>
     <el-rate
       v-model="rating"
       :colors="colors">
