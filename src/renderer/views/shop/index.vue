@@ -245,7 +245,7 @@ export default {
       // this.comments = '正在加载'
       this.commentsVisible = true
       this.comments = await getComment(this.item.goods_no)
-      console.log(this.comments)
+      // console.log(this.comments)
       // this.comments = ''
       // for (var comment of commentArray) {
       //   var d = new Date(comment.time)
