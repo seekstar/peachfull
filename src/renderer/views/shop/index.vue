@@ -131,7 +131,20 @@
       </div>
     </el-dialog>
     <el-dialog :visible.sync="commentsVisible">
-      <span>{{comments}}</span>
+      <el-col v-for="comment of comments" :key="comment">
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <span>{{comment.buyer}}</span>
+            <span>{{(new Date(comment.time)).toISOString().slice(0,10)}}</span>
+            <el-rate
+              v-model="comment.rating"
+              :colors="colors"
+              disabled="">
+            </el-rate>
+          </div>
+          <div>{{comment.comment}}</div>
+        </el-card>
+      </el-col>
     </el-dialog>
   </div>
 </template>
@@ -226,12 +239,17 @@ export default {
       })
     },
     async show_comment() {
-      this.comments = '正在加载'
+      // this.comments = '正在加载'
       this.commentsVisible = true
-      // TODO:
-
       this.comments = await getComment(this.item.goods_no)
       console.log(this.comments)
+      // this.comments = ''
+      // for (var comment of commentArray) {
+      //   var d = new Date(comment.time)
+      //   this.comments += comment.buyer + '在' + d.getFullYear() + '年' + d.getMonth() + '月' + d.getDay() + '日' +
+      //     '给了' + comment.rating + '颗星：\n' + comment.comment + '\n\n'
+      //   console.log(comment)
+      // }
     }
   }
 }
