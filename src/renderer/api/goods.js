@@ -1,4 +1,5 @@
 import { query, transcaction, connquery } from '@/utils/mysql'
+import { getComment } from '@/api/comment'
 
 export async function getGoods(conds) {
   const field = Object.keys(conds).map(
@@ -6,7 +7,22 @@ export async function getGoods(conds) {
   )
   const sql = 'select goods.*,stock,sales from goods,stock where goods.goods_no=stock.goods_no' + (field.length > 0 ? ' and ' : '') + field.join(' and ')
   var params = Object.values(conds)
-  const goods = await query(sql, params)
+  var goods = await query(sql, params)
+
+  for (var idx in goods) {
+    var cs = await getComment(goods[idx].goods_no)
+    if (cs.length === 0) {
+      goods[idx].reputation = '暂无评价'
+      continue
+    }
+    var r = 0
+    r = 0
+    for (var c of cs) {
+      r += c.rating
+    }
+    r /= cs.length
+    goods[idx].reputation = '好评度：' + (r * 20).toFixed(2).toString() + '%'
+  }
   return goods
 }
 

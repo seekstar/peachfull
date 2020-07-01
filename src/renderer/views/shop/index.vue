@@ -28,6 +28,7 @@
           <span style="text-decoration:line-through;color:#999">{{item.old_price.toFixed(2)}}</span>
           <el-button type="text" class="button" @click="headerform.seller=item.seller;select()">{{item.seller}}</el-button>
         </div>
+        <span>{{item.reputation}}</span>
       </div>
     </el-card>
   </el-col> 
@@ -131,20 +132,22 @@
       </div>
     </el-dialog>
     <el-dialog :visible.sync="commentsVisible">
-      <el-col v-for="comment of comments" :key="comment">
-        <el-card class="box-card">
-          <div slot="header" class="clearfix">
-            <span>{{comment.buyer}}</span>
-            <span>{{(new Date(comment.time)).toISOString().slice(0,10)}}</span>
-            <el-rate
-              v-model="comment.rating"
-              :colors="colors"
-              disabled="">
-            </el-rate>
-          </div>
-          <div>{{comment.comment}}</div>
-        </el-card>
-      </el-col>
+      <table>
+        <el-col v-for="comment of comments" :key="comment">
+          <el-card class="box-card">
+            <div slot="header" class="clearfix">
+              <span>{{comment.buyer}}</span>
+              <span>{{(new Date(comment.time)).toISOString().slice(0,10)}}</span>
+              <el-rate
+                v-model="comment.rating"
+                :colors="colors"
+                disabled="">
+              </el-rate>
+            </div>
+            <div>{{comment.comment}}</div>
+          </el-card>
+        </el-col>
+      </table>
     </el-dialog>
   </div>
 </template>
