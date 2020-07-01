@@ -56,7 +56,7 @@
           <el-button @click="dislike(item)">差评</el-button>
             <span>{{item.dislikes}}</span>
         </div> -->
-        <div style="margin-top: 10px;">
+        <div v-if="item.state.indexOf('交易成功')!=-1" style="margin-top: 10px;">
           <el-button @click="show_comment_dialog(item)">评论</el-button>
         </div>
         </el-main>
@@ -99,6 +99,7 @@ import { mapGetters } from 'vuex'
 import { addOrder } from '@/api/order'
 import { getConsignee, addConsignee, deleteConsignee, updateConsignee } from '@/api/consignee'
 import { getOrderForBuyer, updateOrder } from '@/api/order'
+import { addComment } from '@/api/comment'
 import { parseTime } from '@/utils/index'
 export default {
   data() {
@@ -117,7 +118,7 @@ export default {
       consignee: null,
       selected: [],
       state: null,
-      stateList: ['全部', '待发货', '已发货', '申请退货', '退货成功', '交易成功'],
+      stateList: ['全部', '待发货', '已发货', '申请退货', '退货成功', '交易成功', '评价成功'],
       comment: null,
       rating: null,
       commentVisible: false,
@@ -194,13 +195,16 @@ export default {
     // },
     // async dislike(item) {
     // },
-    show_comment_dialog() {
+    show_comment_dialog(item) {
       this.commentVisible = true
+      this.item = item
     },
     async submit_comment() {
       this.commentVisible = false
       // TODO:
-      // await post_comment(this.token, this.item.goods_no, this.rating, this.comment)
+      await addComment(this.token, this.item.order_no, this.rating, this.comment)
+      await updateOrder(this.item.order_no, '评价成功')
+      this.$message.success('评价成功')
     },
     parseTime(time) { return parseTime(time) }
   }

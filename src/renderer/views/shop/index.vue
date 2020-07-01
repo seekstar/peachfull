@@ -141,6 +141,7 @@ import { mapGetters } from 'vuex'
 import { getGoods } from '@/api/goods'
 import { addOrder } from '@/api/order'
 import { getConsignee, addConsignee, deleteConsignee, updateConsignee } from '@/api/consignee'
+import { getComment } from '@/api/comment'
 import { addCart } from '@/api/cart'
 export default {
   data() {
@@ -228,7 +229,9 @@ export default {
       this.comments = '正在加载'
       this.commentsVisible = true
       // TODO:
-      // this.comments = await get_comment(this.item.goods_no)
+
+      this.comments = await getComment(this.item.goods_no)
+      console.log(this.comments)
     }
   }
 }
