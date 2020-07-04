@@ -180,6 +180,8 @@ import { mapGetters } from 'vuex'
 import { addOrder } from '@/api/order'
 import { getConsignee, addConsignee, deleteConsignee, updateConsignee } from '@/api/consignee'
 import { addCart, getCart, updateCart, deleteCart } from '@/api/cart'
+import AlipaySdk from 'alipay-sdk'
+import AlipayFormData from 'alipay-sdk/lib/form'
 export default {
   data() {
     return {
@@ -247,7 +249,24 @@ export default {
     },
     async onBuy() {
       await addOrder(this.token, [this.item])
-      this.$message.success('模拟付款成功')
+      // this.$message.success('模拟付款成功')
+      console.log('DEBUG: onBuy')
+      console.log(this.item)
+      const alipaySdk = new AlipaySdk({
+        appId: '2021001170648180',
+        privateKey: 'MIIEpAIBAAKCAQEA5++VlS85bpoJUp8xSOaoQIvnyMPfjdvohIf+S3P5Rt0pqiHEGXzcrZtMtCUioFUzDhFvjaLuEa8IFS4XR2P5YahDMafE5cohuofaDe1vmF5qLfBSE9ifRNnk11Bk2Fmh2Eb2FI8sb5lKv357WkDeV54W/zeqDzJKDS33lEYnYUUV0ED6FU8Cd+IxD3X3FMun/DL5PvMNzztmwfVMnxEAZTdcr8cRvR3vwfAzZF6CcI7QAiKtYeD5BY+HC/yZXtvZ8jyVEhNVKX6EmW3xQzQMOQzYBk3ei99bFwyv/pS8eFEFk0fyLpkXN0IexNamo5KlXWG4MpCHYoAMCDsrl6KlHQIDAQABAoIBAEhPGYN5RZ6Fx4JKv0LLJol5FLoy1u+TL9qhy1YawgylxueTv19y3hoB4NgI+9KgvVoVdYHi2fYJa6uuwvMu6ADaRJimhWxeqEVPNVxCOhh21wObePtW/dCpXf8CwW3yA9M5zF58hI4GbJdnB24L60XFs8W9xPcX5p5VRmqjtINOPpGg892P2uIN/8knZ/j0kA4TuMUPay7nm6oWfrjmboCH5ARkcTza/nhfRfAINfSXfCCHDI08EF45yNkrRRBiD6X7HIJQO7hmMoGRW/WrPHVQRziILxaj0wnXzSPyltcrvFRTzitVwX9DFa0n80HWVvIQ8JpZM+Tb0HF4XzxHTAECgYEA+hVp9RWkMkjgse9V/WyIvMZ5leaVld17L0JZqlC28pr9ze6NV0z5199GXBkk0Xc13nJRZ3RIYosSwM3uTu3sdDaMCpQbTL9A9bpKASWM/N2QYaJzZCjGj9WFBZA26gcLaawwCCpAVgUAHEQju1PtvEnEWdNWODgeudaK2eRIwQ0CgYEA7WxDAQIGuRsMTIR4XkniLe7pNu5qGFdapYkAwsotdPHWd/KitDUMsmfNvwuzGdwcZIf1mER99JIEAL4avfdcc92iehX3QXDU+gaVoqV7IWSMV87pavc1I7FBnUDc/DfnvsiezI8FzMK9PKLO+tM7jcHsuKR3rM8rh1pGD7AP0FECgYEAupU/eJus5dd5zUfD4FAZtL5f+HcRI78bKSdXvrp5xIfe1MYmrfvAbE8pL42S6rUGe/DOy2D2oI8ibrc2Fa1tvUb1NO9LbvdCgBN9I13g0sh78FxDu3awrp+fn4b5caHP4geVzoG3fnY8nto3zovP06s1087ZhRhZ1E09S1QG9AECgYAHOUYIn9EojKQhJ96pr8HL9/rsivB7cRz28GYvhws/BaSq3Z0JspuCSho+d9KpNMNAY8qbKWpTqKWqiB40LXSIqfOpl0WAnjg8qzqeSj6m03JZsZf0gzUAswH2EOUoX2MTsPLz8l4QztQHJkT56LdlJsNXEtn5Tgxa/+olzAuPIQKBgQDNYpLP5a/u5ffwceBRre2kISXMvf3qyLZK87rgim4HzjhWD+BRw//XCT4G6tdho4Wbb0ZxsSIZfNZHr8WPzyZFgluyhtEssmz0050teZXtn8crDScKH/uTpN+Ir/UVrRv3VRGTobERo+UhFYT6s5TLt+IL1LSXcE0VXimuxUxjyQ=='
+      })
+      const formData = new AlipayFormData()
+      formData.addField('notifyUrl', 'http://www.com/notify') // TODO
+      formData.addField('bizContent', {
+        outTradeNo: '123456', // TODO
+        productCode: 'FAST_INSTANT_TRADE_PAY',
+        totalAmount: this.item.price * 1, // TODO
+        subject: '商品', // TODO
+        body: '商品详情' // TODO
+      })
+      const result = await alipaySdk.exec('alipay.trade.page.pay', {}, { formData: formData })
+      console.log(result)
       this.buyVisible = false
       this.detailVisible = false
     },
